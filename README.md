@@ -1,3 +1,5 @@
+## Create a React boilderplate
+
 There is a story of a hungry man who went begging for food. One provided him fish and other taught him to fish. Sometimes it is better to provide means to earn food rather than giving food. Okay, it depends of how hungry they are and how difficult is the way to earn food. Here I am providing you both, boilderplate and way to create boilderplate.
 
 So why a way to create boilderplate. With ready made boilerplates you may face the following: 
@@ -6,6 +8,15 @@ So why a way to create boilderplate. With ready made boilerplates you may face t
 - You don't what is happening
 
 So that is the reason why this article provides the steps to create a boilerplate, rather than a boilerplate.
+
+The boilderplate main to have the following
+1. Styling
+2. Routing
+3. Lazy Loading of pages
+4. Document Head Management
+5. Error Boundary
+6. TypeScript (optional)
+7. State Management (not really)
 
 ###  Lets us start with the `create-react-app`
 
@@ -22,7 +33,7 @@ npx create-react-app your-application-name --template typescript
 ```
 
 
-### Add Router
+### Routing
 In case you have a more than one page, you need to have a router. For routing we are using [React Router](https://github.com/ReactTraining/react-router)
 
 First install `react-router`
@@ -116,12 +127,14 @@ export default App;
 
 Once done you will have `/` pointing to the `Home Page` and `/about` ponting to the `About Page`.
 
-### Add [`react-helment-async`](https://www.npmjs.com/package/react-helmet-async)
+### Manage Document Head 
+
+We will use [`react-helment-async`](https://www.npmjs.com/package/react-helmet-async) to manage documet head.
 `react-helment` is used manage all of your changes to the document head like `title`, `metadata`, etc. But then why `react-helment-async` intead of `react-helmet`.
-"react-helmet relies on react-side-effect, which is not thread-safe. If you are doing anything asynchronous on the server, you need Helmet to encapsulate data on a per-request basis, this package does just that."
+> react-helmet relies on react-side-effect, which is not thread-safe. If you are doing anything asynchronous on the server, you need Helmet to encapsulate data on a per-request basis, this package does just that.
 
 Install 
-```
+```bash
 yarn add react-helmet-async
 ```
 
@@ -153,22 +166,22 @@ function App() {
 ```
 
 
-### Add Styling
+### Styling
 For styling you have choices. 
   - You can go with preprocessors like `sass` or `less`
-  - Use UI libraries like bootstrap, ant design
-  - A minimal utility library like [tailwind](https://www.tailwindtoolbox.com/)
+  - Use UI libraries like [Bootstrap](https://getbootstrap.com/), [Ant Design](https://ant.design/docs/react/introduce)
+  - A minimal utility library like [Tailwind](https://www.tailwindtoolbox.com/)
   - Or you can use [styled-components](https://styled-components.com/)
 
 Here we will be using `styled-components`. The choice depends on your requiement and the team. If you want a custom theme you should go with something like `sass` or `styled-components`. But when you are running short of time and the design is a cliche onew go with `bootstrap` or `ant design`.
 
 Install
-```
+```bash
 yarn add styled-components
 ```
 
 And if you are using `TypeScript` add types
-```
+```bash
 yarn add @types/styled-components
 ```
 
@@ -295,9 +308,13 @@ import { LoadingIndicator, ErrorFallback } from "./components/generics";
 
 ### Storybook
 Why? Improves the development experience.
-
+<Under Progress>
+Install
+```
+```
 
 ### State Management
-This is not a mandatory component. When the components have lot of shared state you will have to go for a (state management)[https://kentcdodds.com/blog/application-state-management-with-react] to avoid (props drilling)[https://kentcdodds.com/blog/prop-drilling/] 
+This is not a mandatory component. When the components have lot of shared state you will have to go for a [state management](https://kentcdodds.com/blog/application-state-management-with-react) to avoid [props drilling](https://kentcdodds.com/blog/prop-drilling/).
+Do read the article mentioned here. It will give you a direction on State Management. 
 
-There are multiple options available
+Other than the onces mentioned in the article there is new child in state management ~ [Recoil](https://github.com/facebookexperimental/Recoil) by Facebook. You can also checkout the [egghead.io video tutorial on Recoil](https://egghead.io/playlists/getting-started-with-recoil-in-react-1fca)
