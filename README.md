@@ -1,15 +1,15 @@
-## Create a React boilderplate
+## Create a React Boilerplate
 
-There is a story of a hungry man who went begging for food. One provided him fish and other taught him to fish. Sometimes it is better to provide means to earn food rather than giving food. Okay, it depends of how hungry they are and how difficult is the way to earn food. Here I am providing you both, boilderplate and way to create boilderplate.
+There is a story of a hungry man who went begging for food. One provided him fish and other taught him to fish. Sometimes it is better to provide means to earn food rather than giving food. Okay, it depends of how hungry they are and how difficult is the way to earn food. Here I am providing you both, boilerplate and way to create boilerplate.
 
-So why a way to create boilderplate. With ready made boilerplates you may face the following: 
+So why a way to create boilerplate. With ready made boilerplate you may face the following: 
 - Not all the boilerplate features are required
 - Some packages are outdated
 - You don't what is happening
 
 So that is the reason why this article provides the steps to create a boilerplate, rather than a boilerplate.
 
-The boilderplate main to have the following
+The boilerplate main to have the following
 1. Styling
 2. Routing
 3. Lazy Loading of pages
@@ -125,11 +125,11 @@ export default App;
 
 ```
 
-Once done you will have `/` pointing to the `Home Page` and `/about` ponting to the `About Page`.
+Once done you will have `/` pointing to the `Home Page` and `/about` pointing to the `About Page`.
 
 ### Manage Document Head 
 
-We will use [`react-helment-async`](https://www.npmjs.com/package/react-helmet-async) to manage documet head.
+We will use [`react-helment-async`](https://www.npmjs.com/package/react-helmet-async) to manage document head.
 `react-helment` is used manage all of your changes to the document head like `title`, `metadata`, etc. But then why `react-helment-async` intead of `react-helmet`.
 > react-helmet relies on react-side-effect, which is not thread-safe. If you are doing anything asynchronous on the server, you need Helmet to encapsulate data on a per-request basis, this package does just that.
 
@@ -168,12 +168,12 @@ function App() {
 
 ### Styling
 For styling you have choices. 
-  - You can go with preprocessors like `sass` or `less`
+  - You can go with pre-processors like `sass` or `less`
   - Use UI libraries like [Bootstrap](https://getbootstrap.com/), [Ant Design](https://ant.design/docs/react/introduce)
   - A minimal utility library like [Tailwind](https://www.tailwindtoolbox.com/)
   - Or you can use [styled-components](https://styled-components.com/)
 
-Here we will be using `styled-components`. The choice depends on your requiement and the team. If you want a custom theme you should go with something like `sass` or `styled-components`. But when you are running short of time and the design is a cliche onew go with `bootstrap` or `ant design`.
+Here we will be using `styled-components`. The choice depends on your requirement and the team. If you want a custom theme you should go with something like `sass` or `styled-components`. But when you are running short of time and the design is a cliche one go with `bootstrap` or `ant design`.
 
 Install
 ```bash
@@ -233,7 +233,7 @@ You should use [ThemeProvider](https://styled-components.com/docs/advanced#themi
 
 
 ### Lazy Load JS
-Consider you have 10 pages in your application. Normally when a single page loads, it loads all the all the JS required for all the pages, not just the current page.  This is normal loading or you can call egar loading. Via lazy loading we will load only the JS required for the current page. Load the rest of the resources when requested for. It is ondemand loading(lazy) of the resources rather than egar loading all of them. This helps to improve the initial loading time.
+Consider you have 10 pages in your application. Normally when a single page loads, it loads all the all the JS required for all the pages, not just the current page.  This is normal loading or you can call eager loading. Via lazy loading we will load only the JS required for the current page. Load the rest of the resources when requested for. It is on-demand loading(lazy) of the resources rather than eager loading all of them. This helps to improve the initial loading time.
 
 To enable lazy loading we are making a few changes to the `config/pages.ts` lazy load the pages. Instead of loading pages directly we need to lazy load it.
 ```javascript
@@ -263,7 +263,7 @@ export default function LoadingIndicator() {
 And in the `App.tsx` we will wrap the page component with `Suspense`
 ```javascript
 import React, { Suspense } from "react";
-import { LoadingIndicator } from "./components/genrics";
+import { LoadingIndicator } from "./components/generics";
 
 // .....
 // .....
@@ -274,9 +274,8 @@ import { LoadingIndicator } from "./components/genrics";
 // .....
 ```
 
-
-### Setting Error Boundry
-Since we are lazy loading the component, what if the component fails to load. Rather than making the whole screen go blank, we can provide better user experience by using [Error Boundries](https://reactjs.org/docs/error-boundaries.html). Error boundry will help to replace component having exception with a fallback component. 
+### Setting Error Boundary
+Since we are lazy loading the component, what if the component fails to load. Rather than making the whole screen go blank, we can provide better user experience by using [Error Boundaries](https://reactjs.org/docs/error-boundaries.html). Error boundary will help to replace component having exception with a fallback component. 
 
 We will be using [react-error-boundary](https://github.com/bvaughn/react-error-boundary).
 
@@ -315,6 +314,10 @@ Install
 
 ### State Management
 This is not a mandatory component. When the components have lot of shared state you will have to go for a [state management](https://kentcdodds.com/blog/application-state-management-with-react) to avoid [props drilling](https://kentcdodds.com/blog/prop-drilling/).
-Do read the article mentioned here. It will give you a direction on State Management. 
+Do read the article mentioned here. It will give you a direction on State Management. It mentions about state management methods like
+  1. [`useState`]()
+  2. [`useReducer`]()
+  3. [`useContext`]()
+  4. [Redux]()
 
-Other than the onces mentioned in the article there is new child in state management ~ [Recoil](https://github.com/facebookexperimental/Recoil) by Facebook. You can also checkout the [egghead.io video tutorial on Recoil](https://egghead.io/playlists/getting-started-with-recoil-in-react-1fca)
+Other than the onces mentioned above there is new child in state management ~ [Recoil](https://github.com/facebookexperimental/Recoil) by Facebook. You can also checkout the [egghead.io video tutorial on Recoil](https://egghead.io/playlists/getting-started-with-recoil-in-react-1fca)
