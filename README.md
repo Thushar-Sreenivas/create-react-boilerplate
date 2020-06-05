@@ -1,33 +1,33 @@
 ## Create a React Boilerplate
 
-There is a story of a hungry man who went begging for food. One provided him fish and other taught him to fish. Sometimes it is better to provide means to earn food rather than giving food. Okay, it depends of how hungry they are and how difficult is the way to earn food. Here I am providing you both, boilerplate and way to create boilerplate.
+There is a story of a hungry man who went begging for food. One generous person provided him fish and another taught him to fish. Sometimes it is better to provide means to earn food rather than food. Yeah... it depends of how hungry they are and how difficult is the means to earn food. So let's have both, boilerplate and steps to create boilerplate.
 
-So why a way to create boilerplate. With ready made boilerplate you may face the following: 
-- Not all the boilerplate features are required
+So why steps to create boilerplate rather than a boilerplate. With ready made boilerplate you may face the following: 
+- Not all the features are required
 - Some packages are outdated
 - You don't what is happening
 
-So that is the reason why this article provides the steps to create a boilerplate, rather than a boilerplate.
+For above reasons this article aims to detail the steps to create the boilerplate.
 
-The boilerplate main to have the following
+The boilerplate aims to have the following
+1. TypeScript (optional)
+1. Routing
 1. Styling
-2. Routing
-3. Lazy Loading of pages
-4. Document Head Management
-5. Error Boundary
-6. TypeScript (optional)
-7. State Management (not really)
+1. Document Head Management
+1. Lazy Loading of Pages
+1. Error Boundary
+1. State Management (not really)
 
 ###  Lets us start with the `create-react-app`
 
 Here you have a choice to go with or without `TypeScript`.
 
-Without TypeScript
+Without `TypeScript`
 ```bash
 npx create-react-app your-application-name 
 ``` 
 
-With TypeScript
+With `TypeScript`
 ```
 npx create-react-app your-application-name --template typescript
 ```
@@ -38,7 +38,7 @@ In case you have a more than one page, you need to have a router. For routing we
 
 First install `react-router`
 ```
- yarn add  react-router-dom
+ yarn add react-router-dom
 ```
 
 And if you are using `TypeScript` add types
@@ -46,8 +46,7 @@ And if you are using `TypeScript` add types
 yarn add @types/react-router
 ```
 
-It is good to have a `config/pages.ts` file where you define all the pages related information. 
-And you can define all your pages in a `components/pages` folder.
+It is good to have a `config/pages.ts` file where you define all the pages related information. And you can define all your pages in a `components/pages` folder.
 
 ```javascript
 import { HomePage, AboutPage } from "../components/pages";
@@ -68,7 +67,7 @@ export const pages = {
 
 This is in the form of a directory so that we can refer `pages.about.path`. To get as an array use `Object.values(pages)`
 
-We will also have simple navigation `components/layouts/NavBar.tsx`
+We will also have simple navigation bar `components/layouts/NavBar.tsx`
 
 ```javascript
 import React from "react";
@@ -89,7 +88,7 @@ export default function TopNav() {
 }
 ```
 
-And in the `App.tsx` will mix the above
+And in the `App.tsx` 
 
 ```javascript
 import React from "react";
@@ -128,16 +127,14 @@ export default App;
 Once done you will have `/` pointing to the `Home Page` and `/about` pointing to the `About Page`.
 
 ### Manage Document Head 
-
 We will use [`react-helment-async`](https://www.npmjs.com/package/react-helmet-async) to manage document head.
-`react-helment` is used manage all of your changes to the document head like `title`, `metadata`, etc. But then why `react-helment-async` intead of `react-helmet`.
-> react-helmet relies on react-side-effect, which is not thread-safe. If you are doing anything asynchronous on the server, you need Helmet to encapsulate data on a per-request basis, this package does just that.
+Ther is npm package `react-helment` which is used manage changes to the document head like `title`, `metadata`, etc. But then why `react-helment-async` instead of `react-helmet`?
+> The `react-helmet` relies on `react-side-effect`, which is not **thread-safe**. If you are doing anything asynchronous on the server, you need Helmet to encapsulate data on a per-request basis, this package does just that.
 
 Install 
 ```bash
 yarn add react-helmet-async
 ```
-
 
 Now to change `title` in relation with the page loaded, the `App.tsx` will be 
 ```javascript
@@ -167,13 +164,13 @@ function App() {
 
 
 ### Styling
-For styling you have choices. 
-  - You can go with pre-processors like `sass` or `less`
-  - Use UI libraries like [Bootstrap](https://getbootstrap.com/), [Ant Design](https://ant.design/docs/react/introduce)
-  - A minimal utility library like [Tailwind](https://www.tailwindtoolbox.com/)
-  - Or you can use [styled-components](https://styled-components.com/)
+When it comes to styling there are many choices: 
+  - Pre-processors like `sass` or `less`
+  - UI libraries like [Bootstrap](https://getbootstrap.com/), [Ant Design](https://ant.design/docs/react/introduce)
+  - Minimal utility library like [Tailwind](https://www.tailwindtoolbox.com/)
+  - Or [styled-components](https://styled-components.com/)
 
-Here we will be using `styled-components`. The choice depends on your requirement and the team. If you want a custom theme you should go with something like `sass` or `styled-components`. But when you are running short of time and the design is a cliche one go with `bootstrap` or `ant design`.
+Here we will be using `styled-components`. The choice depends on the application requirement and the team. If the requirement is to create custom theme with you should go with something like `sass` or `styled-components`. But when you are running short of time and the design is a cliche (like an admin dashboard) go with `bootstrap` or `ant design`.
 
 Install
 ```bash
@@ -185,7 +182,7 @@ And if you are using `TypeScript` add types
 yarn add @types/styled-components
 ```
 
-Let's make the NavBar look better
+So Let's make the NavBar look better
 ```javascript
 import React from "react";
 import { Link } from "react-router-dom";
@@ -229,11 +226,58 @@ export default function TopNav() {
 }
 ```
 
-You should use [ThemeProvider](https://styled-components.com/docs/advanced#theming) from `styled-component` rather than using hard coded values. Check the boilerplate.
+It is not a good practice to hardcode the style values like above. The [ThemeProvider](https://styled-components.com/docs/advanced#theming) from `styled-component` should be used.
 
+So let us define our theme in `config/theme.ts`
+```javascript
+export default {
+  light : {
+    primary: "#19f",
+    background: "#eee",
+    foreground: "#444",
+  },
+  dark : {
+    primary: "#19f",
+    background: "#444",
+    foreground: "#eee",
+  },
+};
+```
+ 
+ And the components need to wrapped with the `ThemeProvider` in `App.tsx`
+ ```javascript
+// ....
+// ....
+import { ThemeProvider } from "styled-components";
+import theme from "./config/theme";
+// ....
+// ....
+      <Router>
+        <ThemeProvider theme={theme.dark}>
+          <Switch>
+              // ....
+              // ....
+            </Switch>
+        </ThemeProvider>
+      </Router>
+// ....
+// ....
+ ```
+
+Now in the `Navbar` you can
+```javascript
+const NavItem = styled.li`
+  a {
+    text-decoration: none;
+    padding: 1rem;
+    display: inline-block;
+    color: ${props => props.theme.primary};
+  }
+`;
+```
 
 ### Lazy Load JS
-Consider you have 10 pages in your application. Normally when a single page loads, it loads all the all the JS required for all the pages, not just the current page.  This is normal loading or you can call eager loading. Via lazy loading we will load only the JS required for the current page. Load the rest of the resources when requested for. It is on-demand loading(lazy) of the resources rather than eager loading all of them. This helps to improve the initial loading time.
+Consider an application having 10 pages. Normally when the first page loads, it loads JS required for all the pages, not just the current page.  This is normal loading (eager loading). Via lazy loading the application can be made to load only the JS required for the current page. The rest of the resources will be loaded when requested for. It is on-demand loading(lazy) of the resources rather than eager loading all of them. This helps to improve the initial loading time.
 
 To enable lazy loading we are making a few changes to the `config/pages.ts` lazy load the pages. Instead of loading pages directly we need to lazy load it.
 ```javascript
@@ -284,6 +328,19 @@ Install
 yarn add react-error-boundary
 ```
 
+Add `components/generics/ErrorFallback.tsx`
+```javascript
+import React from 'react'
+
+export default function ErrorFallback() {
+  return (
+    <div>
+      Sorry!!! Failed to load.   
+    </div>
+  )
+}
+```
+
 And in the `App.tsx` page add the following
 ```javascript
 //....
@@ -306,18 +363,56 @@ import { LoadingIndicator, ErrorFallback } from "./components/generics";
   - [Official React Documentation](https://reactjs.org/docs/error-boundaries.html)
 
 ### Storybook
-Why? Improves the development experience.
-<Under Progress>
-Install
+>[Storybook](https://storybook.js.org/docs/guides/guide-react/) is a user interface development environment and playground for UI components. The tool enables developers to create components independently and showcase components interactively in an isolated development environment.
+
+>Storybook runs outside of the main app so users can develop UI components in isolation without worrying about app specific dependencies and requirements.
+
+Install (since we are using `create-react-app`)
 ```
+npx -p @storybook/cli sb init --type react_scripts
+```
+
+This will create 2 folders
+  1. `.storybook` containing the config
+  2. `stories` having the stories where we can add more stories
+
+The stories location can be edited in the `.storybook/main.js` file. Since we are using `tsx` files we will update the config as 
+```javascript
+module.exports = {
+-  stories: ['../src/**/*.stories.js'],
++  stories: ['../src/**/*.stories.tsx'],
+  addons: [
+    '@storybook/preset-create-react-app',
+    '@storybook/addon-actions',
+    '@storybook/addon-links',
+  ],
+};
+```
+
+Now add a story for `ErrorFallback` component in `ErrorFallback.stories.tsx`
+```javascript
+import React from "react";
+import { ErrorFallback } from "../components/generics";
+
+export default {
+  title: "Error Fallback",
+  component: ErrorFallback
+};
+
+export const Error = () => <ErrorFallback />;
+```
+
+Now to run the storybook
+```
+yarn storybook
 ```
 
 ### State Management
 This is not a mandatory component. When the components have lot of shared state you will have to go for a [state management](https://kentcdodds.com/blog/application-state-management-with-react) to avoid [props drilling](https://kentcdodds.com/blog/prop-drilling/).
 Do read the article mentioned here. It will give you a direction on State Management. It mentions about state management methods like
-  1. [`useState`]()
-  2. [`useReducer`]()
-  3. [`useContext`]()
-  4. [Redux]()
+  1. [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate)
+  2. [`useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer)
+  3. [`useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext)
+  4. [Redux](https://react-redux.js.org/)
 
 Other than the onces mentioned above there is new child in state management ~ [Recoil](https://github.com/facebookexperimental/Recoil) by Facebook. You can also checkout the [egghead.io video tutorial on Recoil](https://egghead.io/playlists/getting-started-with-recoil-in-react-1fca)
