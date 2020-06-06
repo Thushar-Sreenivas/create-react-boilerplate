@@ -25,10 +25,16 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "ci-test": "CI=true react-scripts test",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "lint": "eslint --ext js,ts,tsx src"
   },
+  "pre-commit": [
+    "lint",
+    "ci-test"
+  ],
   "eslintConfig": {
     "extends": "react-app"
   },
