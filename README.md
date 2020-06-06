@@ -1,4 +1,4 @@
-## Create a React Boilerplate
+# Create a React Boilerplate
 
 There is a story of a hungry man who went begging for food. One generous person provided him fish and another taught him to fish. Sometimes it is better to provide means to earn food rather than food. Yeah... it depends of how hungry they are and how difficult is the means to earn food. So let's have both, boilerplate and steps to create boilerplate.
 
@@ -10,15 +10,21 @@ So why steps to create boilerplate rather than a boilerplate. With ready made bo
 For above reasons this article aims to detail the steps to create the boilerplate.
 
 The boilerplate aims to have the following
-1. TypeScript (optional)
-1. Routing
-1. Styling
-1. Document Head Management
-1. Lazy Loading of Pages
-1. Error Boundary
-1. State Management (not really)
+1. TypeScript
+2. [Folder Structure](#Folder-Structure)
+3. [Routing](#Routing)
+4. [Styling](#Styling)
+5. [Manage Document Head](#Manage-Document-Head)
+6. [Lazy Loading of Pages](#Lazy-Loading)
+7. [Setting Error Boundary](#Setting-Error-Boundary)
+8. [Testing](#Testing)
+9. [Precommit Hooks](#Precommit-Hooks)
+10. [Storybook](#Storybook)
+11. [State Management?](#State-Management)
 
-###  Lets us start with the `create-react-app`
+##  Lets us start
+
+The starting point will be with the `create-react-app`
 
 Here you have a choice to go with or without `TypeScript`.
 
@@ -33,7 +39,41 @@ npx create-react-app your-application-name --template typescript
 ```
 
 
-### Routing
+## Folder Structure
+There is not hard and fast rule for the folder structure. The document follows the below structure:
+```
++-- components
+|   +-- generics
+|   |   +-- Button
+|   |     |-- Button.tsx
+|   |     |-- Button.stories.tsx
+|   |     |-- Button.test.tsx
+|   +-- domain
+|   |   +-- UserCart
+|   |     |-- UserCart.tsx
+|   |     |-- UserCart.stories.tsx
+|   |     |-- UserCart.test.tsx
+|   +-- layout
+|   |   +-- NavBar
+|   |     |-- NavBar.tsx
+|   |     |-- NavBar.stories.tsx
+|   |     |-- NavBar.test.tsx
+|   +-- pages
+|   |   +-- HomePage
+|   |     |-- HomePage.tsx
+|   |     |-- HomePage.stories.tsx
+|   |     |-- HomePage.test.tsx
++-- config
+|   |-- pages.ts
+|   |-- theme.ts
++-- apis
+|   |-- auth.ts
+|   |-- cart.ts
++-- utils
+    |-- tax.ts 
+```
+
+## Routing
 In case you have a more than one page, you need to have a router. For routing we are using [React Router](https://github.com/ReactTraining/react-router)
 
 First install `react-router`
@@ -126,7 +166,7 @@ export default App;
 
 Once done you will have `/` pointing to the `Home Page` and `/about` pointing to the `About Page`.
 
-### Manage Document Head 
+## Manage Document Head 
 We will use [`react-helment-async`](https://www.npmjs.com/package/react-helmet-async) to manage document head.
 Ther is npm package `react-helment` which is used manage changes to the document head like `title`, `metadata`, etc. But then why `react-helment-async` instead of `react-helmet`?
 > The `react-helmet` relies on `react-side-effect`, which is not **thread-safe**. If you are doing anything asynchronous on the server, you need Helmet to encapsulate data on a per-request basis, this package does just that.
@@ -163,7 +203,7 @@ function App() {
 ```
 
 
-### Styling
+## Styling
 When it comes to styling there are many choices: 
   - Pre-processors like `sass` or `less`
   - UI libraries like [Bootstrap](https://getbootstrap.com/), [Ant Design](https://ant.design/docs/react/introduce)
@@ -276,7 +316,7 @@ const NavItem = styled.li`
 `;
 ```
 
-### Lazy Load JS
+## Lazy Loading
 Consider an application having 10 pages. Normally when the first page loads, it loads JS required for all the pages, not just the current page.  This is normal loading (eager loading). Via lazy loading the application can be made to load only the JS required for the current page. The rest of the resources will be loaded when requested for. It is on-demand loading(lazy) of the resources rather than eager loading all of them. This helps to improve the initial loading time.
 
 To enable lazy loading we are making a few changes to the `config/pages.ts` lazy load the pages. Instead of loading pages directly we need to lazy load it.
@@ -318,7 +358,7 @@ import { LoadingIndicator } from "./components/generics";
 // .....
 ```
 
-### Setting Error Boundary
+## Setting Error Boundary
 Since we are lazy loading the component, what if the component fails to load. Rather than making the whole screen go blank, we can provide better user experience by using [Error Boundaries](https://reactjs.org/docs/error-boundaries.html). Error boundary will help to replace component having exception with a fallback component. 
 
 We will be using [react-error-boundary](https://github.com/bvaughn/react-error-boundary).
@@ -328,7 +368,7 @@ Install
 yarn add react-error-boundary
 ```
 
-Add `components/generics/ErrorFallback.tsx`
+Add `components/generics/ErrorFallback/ErrorFallback.tsx`
 ```javascript
 import React from 'react'
 
@@ -362,7 +402,64 @@ import { LoadingIndicator, ErrorFallback } from "./components/generics";
   - [Egghead.io Video](https://egghead.io/lessons/react-using-react-error-boundaries-to-handle-errors-in-react-components)
   - [Official React Documentation](https://reactjs.org/docs/error-boundaries.html)
 
-### Storybook
+
+## Testing
+
+The [`react-testing-library`](https://testing-library.com/) will be used for testing. This comes bundled with `create-react-app`.
+
+Let's write a test for `ErrorFallback` component in `components/generics/ErrorFallback/ErrorFallback.test.tsx`
+```javascript
+import React from "react";
+import { render } from "@testing-library/react";
+import ErrorFallback from "./ErrorFallback";
+
+test("renders learn react link", () => {
+  const { getByText } = render(<ErrorFallback />);
+  const linkElement = getByText(/Failed to load/i);
+  expect(linkElement).toBeInTheDocument();
+});
+```
+
+To run test
+```
+yarn test
+```
+
+## Precommit Hooks
+>[Git hooks](https://githooks.com/) are scripts that Git executes before or after events such as: commit, push, and receive. Git hooks are a built-in feature - no need to download anything. Git hooks are run locally.
+
+Before commiting changes to the repository it is good practice to check if:
+- All tests are passing
+- There are no linting errors
+
+To enable precommit hook, add [pre-commit](https://www.npmjs.com/package/pre-commit) as dev dependency
+```
+yarn add --dev pre-commit
+```
+
+Now make the following changes to `packages.json`.
+```diff
+     "test": "react-scripts test",
++    "ci-test": "CI=true react-scripts test",
+     "eject": "react-scripts eject",
+     "storybook": "start-storybook -p 9009 -s public",
+-    "build-storybook": "build-storybook -s public"
++    "build-storybook": "build-storybook -s public",
++    "lint": "eslint --ext js,ts,tsx src"
+   },
++  "pre-commit": [
++    "lint",
++    "ci-test"
++  ],
+   "eslintConfig": {
+     "extends": "react-app"
+   },
+```
+The `ci-test` is added so that test can be executed in the CI mode rather than in the watch mode.
+
+If in case you want to commit without verification you can use `--no-verify`.
+
+## Storybook
 >[Storybook](https://storybook.js.org/docs/guides/guide-react/) is a user interface development environment and playground for UI components. The tool enables developers to create components independently and showcase components interactively in an isolated development environment.
 
 >Storybook runs outside of the main app so users can develop UI components in isolation without worrying about app specific dependencies and requirements.
@@ -377,7 +474,7 @@ This will create 2 folders
   2. `stories` having the stories where we can add more stories
 
 The stories location can be edited in the `.storybook/main.js` file. Since we are using `tsx` files we will update the config as 
-```javascript
+```diff
 module.exports = {
 -  stories: ['../src/**/*.stories.js'],
 +  stories: ['../src/**/*.stories.tsx'],
@@ -389,7 +486,7 @@ module.exports = {
 };
 ```
 
-Now add a story for `ErrorFallback` component in `ErrorFallback.stories.tsx`
+Now add a story for `ErrorFallback` component in `components/generics/ErrorFallback/ErrorFallback.stories.tsx`
 ```javascript
 import React from "react";
 import { ErrorFallback } from "../components/generics";
@@ -407,7 +504,7 @@ Now to run the storybook
 yarn storybook
 ```
 
-### State Management
+## State Management
 This is not a mandatory component. When the components have lot of shared state you will have to go for a [state management](https://kentcdodds.com/blog/application-state-management-with-react) to avoid [props drilling](https://kentcdodds.com/blog/prop-drilling/).
 Do read the article mentioned here. It will give you a direction on State Management. It mentions about state management methods like
   1. [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate)

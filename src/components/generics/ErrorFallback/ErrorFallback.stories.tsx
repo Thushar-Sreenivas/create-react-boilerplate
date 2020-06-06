@@ -1,5 +1,5 @@
 import React from "react";
-import { ErrorFallback } from "../components/generics";
+import { ErrorFallback } from "..";
 
 export default {
   title: "Error Fallback",
