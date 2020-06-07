@@ -368,7 +368,7 @@ Install
 yarn add react-error-boundary
 ```
 
-Add `components/generics/ErrorFallback/ErrorFallback.tsx`
+Add component `ErrorFallback.tsx` in `generics/ErrorFallback/`
 ```javascript
 import React from 'react'
 
@@ -486,7 +486,7 @@ module.exports = {
 };
 ```
 
-Now add a story for `ErrorFallback` component in `components/generics/ErrorFallback/ErrorFallback.stories.tsx`
+Now add a story for `ErrorFallback` in `ErrorFallback/ErrorFallback.stories.tsx`
 ```javascript
 import React from "react";
 import { ErrorFallback } from "../components/generics";
@@ -507,9 +507,9 @@ yarn storybook
 ## State Management
 This is not a mandatory component. When the components have lot of shared state you will have to go for a [state management](https://kentcdodds.com/blog/application-state-management-with-react) to avoid [props drilling](https://kentcdodds.com/blog/prop-drilling/).
 Do read the article mentioned here. It will give you a direction on State Management. It mentions about state management methods like
-  1. [`useState`](https://reactjs.org/docs/hooks-reference.html#usestate)
-  2. [`useReducer`](https://reactjs.org/docs/hooks-reference.html#usereducer)
-  3. [`useContext`](https://reactjs.org/docs/hooks-reference.html#usecontext)
+  1. [useState](https://reactjs.org/docs/hooks-reference.html#usestate)
+  2. [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer)
+  3. [useContext](https://reactjs.org/docs/hooks-reference.html#usecontext)
   4. [Redux](https://react-redux.js.org/)
 
 Other than the onces mentioned above there is new child in state management ~ [Recoil](https://github.com/facebookexperimental/Recoil) by Facebook. You can also checkout the [egghead.io video tutorial on Recoil](https://egghead.io/playlists/getting-started-with-recoil-in-react-1fca)
